@@ -1,0 +1,57 @@
+---insert---
+
+INSERT INTO Empresa (id_empresa, nome_empresa, cnpj, telefone, email)
+VALUES 
+(1, 'FastNet', '12.345.678/0001-90', '(81) 99999-0000', 'contato@fastnet.com'),
+(2, 'ConectaMais', '23.456.789/0001-55', '(81) 98888-1122', 'suporte@conectamais.com'),
+(3, 'LinkBrasil Telecom', '98.765.432/0001-21', '(81) 97777-3344', 'atendimento@linkbrasil.com');
+
+select * from Empresa;
+
+INSERT INTO Cliente (id_cliente, nome, cpf, email, telefone, fk_id_empresa)
+VALUES 
+(1, 'João Silva', '987.654.321-00', 'joao.silva@gmail.com', '(81) 98888-2222', 1),
+(2, 'Lucas Santos', '111.222.333-44', 'lucas.santos@gmail.com', '(81) 97777-3333', 2),
+(3, 'Rafael Barbosa', '999.888.777-66', 'rafael.barbosa@fastmail.com', '(81) 94444-9898', 3);
+
+select * from Cliente;
+
+INSERT INTO Plano (id_plano, nome_plano, velocidade, valor, fk_id_empresa)
+VALUES 
+(1, 'FastNet Turbo', '500 Mbps', 99.90, 1),
+(2, 'ConectaMais Basic', '100 Mbps', 69.90, 2),
+(3, 'LinkBrasil Plus', '300 Mbps', 89.90, 3);
+
+select * from Plano;
+
+INSERT INTO Funcionario (id_funcionario, nome, cargo, telefone, fk_id_empresa)  
+VALUES 
+(1, 'Pedro Oliveira', 'Técnico de Suporte', '(81) 96666-5678', 1),
+(2, 'Ana Souza', 'Gerente', '(81) 96666-5678', 2),
+(3, 'Rafael Mendes', 'Analista de Redes', '(81) 96666-5678', 3);
+
+select * from Funcionario;
+
+INSERT INTO Endereco (id_endereco, rua, numero, bairro, cidade, fk_id_cliente)  
+VALUES 
+(1, 'Rua das Flores', '123', 'Centro', 'Cidade A', 1),
+(2, 'Praça das Árvores', '101', 'Bairro Verde', 'Cidade D', 2),
+(3, 'Rua do Sol', '202', 'Centro', 'Cidade E', 3);
+
+select * from Endereco;
+
+INSERT INTO Fatura (id_fatura, valor, data_emissao, data_vencimento, data_pagamento, fk_id_cliente, fk_id_plano)  
+VALUES 
+(1, 99.90, '2024-02-15', '2024-02-25', '2024-02-29', 1, 1),
+(2, 69.90, '2024-03-05', '2024-03-15', '2024-03-20', 2, 2),
+(3, 89.90, '2024-04-10', '2024-04-20', '2024-04-20', 3, 3);
+
+select * from Fatura;
+
+INSERT INTO ChamadoTecnico (id_chamado, descricao, data_abertura, status, fk_id_cliente, fk_id_funcionario)  
+VALUES 
+(1, 'Problema de conexão relatado pelo cliente', '2024-02-20', 'aberto', 1, 1),
+(2, 'Solicitação de upgrade de plano', '2024-03-05', 'em_andamento', 2, 2),
+(3, 'Reparo concluído no equipamento', '2024-04-01', 'concluido', 3, 3);
+
+select * from ChamadoTecnico;

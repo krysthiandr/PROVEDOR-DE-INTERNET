@@ -1,0 +1,60 @@
+SELECT 
+    Cliente.id_cliente,
+    Cliente.nome,
+    Cliente.cpf,
+    Cliente.telefone AS telefone_cliente,
+    Empresa.nome_empresa,
+    Empresa.cnpj
+FROM Cliente
+JOIN Empresa ON Cliente.fk_id_empresa = Empresa.id_empresa;
+
+SELECT 
+    Fatura.id_fatura,
+    Cliente.nome AS nome_cliente,
+    Plano.nome_plano,
+    Fatura.valor,
+    Fatura.data_emissao,
+    Fatura.data_vencimento,
+    Fatura.data_pagamento
+FROM Fatura
+JOIN Cliente ON Fatura.fk_id_cliente = Cliente.id_cliente
+JOIN Plano ON Fatura.fk_id_plano = Plano.id_plano;
+
+SELECT
+    ChamadoTecnico.id_chamado,
+    Cliente.nome AS cliente,
+    Funcionario.nome AS funcionario_responsavel,
+    ChamadoTecnico.descricao,
+    ChamadoTecnico.data_abertura,
+    ChamadoTecnico.status
+FROM ChamadoTecnico
+JOIN Cliente ON ChamadoTecnico.fk_id_cliente = Cliente.id_cliente
+JOIN Funcionario ON ChamadoTecnico.fk_id_funcionario = Funcionario.id_funcionario;
+
+CREATE VIEW vw_ChamadosAbertos AS
+SELECT
+    ChamadoTecnico.id_chamado,
+    Cliente.nome AS cliente,
+    Funcionario.nome AS funcionario_responsavel,
+    ChamadoTecnico.descricao,
+    ChamadoTecnico.data_abertura,
+    ChamadoTecnico.status
+FROM ChamadoTecnico
+JOIN Cliente ON ChamadoTecnico.fk_id_cliente = Cliente.id_cliente
+JOIN Funcionario ON ChamadoTecnico.fk_id_funcionario = Funcionario.id_funcionario
+WHERE ChamadoTecnico.status = 'aberto';
+
+CREATE VIEW vw_FaturasPendentes AS
+SELECT
+    Fatura.id_fatura,
+    Cliente.nome AS cliente,
+    Plano.nome_plano,
+    Fatura.valor,
+    Fatura.data_vencimento
+FROM Fatura
+JOIN Cliente ON Fatura.fk_id_cliente = Cliente.id_cliente
+JOIN Plano ON Fatura.fk_id_plano = Plano.id_plano
+WHERE Fatura.data_pagamento IS NULL;
+
+SELECT * FROM vw_ChamadosAbertos;
+SELECT * FROM vw_FaturasPendentes;
